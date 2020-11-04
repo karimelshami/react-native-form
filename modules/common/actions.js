@@ -21,5 +21,10 @@ export function getWhateverFail(value) {
     }
 }
 
-
+export function setFormInput(value){
+    return{
+        type : commonActionTypes.SET_FORM_INPUT,
+        payload : value
+    }
+}
 

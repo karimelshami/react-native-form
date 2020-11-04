@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
-import { commonActions, commonActionTypes, commonApi } from 'modules/common'
+import { commonActions, commonActionTypes, commonApi } from '../common'
 
 function* getWhateverSaga() {
   try {

@@ -1,4 +1,4 @@
-import { api, Urls } from 'utils'
+import { api, Urls } from '../../utils'
 
 const { portalCommon } = Urls;
 
