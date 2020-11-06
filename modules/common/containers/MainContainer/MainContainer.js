@@ -6,7 +6,6 @@ import DateTimePicker from "../../componants/DateAndTimePicker";
 import ImagePicker from "../../componants/ImagePicker";
 import { setFormInput, submitForm } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import * as Yup from "yup";
 
 const MainContainer = () => {
   const dispatch = useDispatch();
@@ -30,21 +29,7 @@ const MainContainer = () => {
   };
 
   const onFormSubmit = () => {
-    // let validationKeys = [
-    //   "title",
-    //   "category",
-    //   "name",
-    //   "description",
-    //   "intialPrice",
-    //   "price",
-    //   "quantity",
-    //   "discount",
-    //   "image",
-    //   "availability_end",
-    //   "availability_start",
-    // ];
     let body = { ...form, discount: form.discount / 100 };
- 
     dispatch(submitForm(body)); // this action doesn't do anything, i was just put here to show how a form is submitted
   };
   const {
