@@ -9,9 +9,23 @@ export function commonReducer(state = initialState, { payload, type }) {
         ...{
           form: {
             ...state.form,
-            ...payload
+            ...payload,
           },
         },
+      };
+    case commonActionTypes.SUBMIT_FORM:
+      return {
+        ...state,
+      };
+    case commonActionTypes.SUBMIT_FORM_SUCCESS:
+      return {
+        ...state,
+        status: "SUBMIT_FORM_SUCCESS",
+      };
+    case commonActionTypes.SUBMIT_FORM_FAIL:
+      return {
+        ...state,
+        status: "SUBMIT_FORM_FAIL",
       };
     default:
       return state;

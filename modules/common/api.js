@@ -1,7 +1,7 @@
 import { api, Urls } from '../../utils'
 
-const { portalCommon } = Urls;
+const { createProduct } = Urls;
 
-export function getWhatever() {
-    return api.get(portalCommon.getWhatever)
+export function submitForm() {
+    return api.post(createProduct)
 }

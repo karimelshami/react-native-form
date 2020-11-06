@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { styles } from "./counter.style";
 const Counter = (props) => {
-  const { onChange, value } = props;
+  const { onChange, value, extendStyle, specialCharacter } = props;
   const [count, setCount] = useState(0);
 
   const onIncrement = () => {
@@ -25,9 +25,10 @@ const Counter = (props) => {
       >
         <Text style={styles.signs}>-</Text>
       </TouchableOpacity>
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>{value}</Text>
-      </View>
+      <Text style={styles.text}>
+        {value}
+        {specialCharacter}
+      </Text>
       <TouchableOpacity
         value={value}
         style={styles.button}

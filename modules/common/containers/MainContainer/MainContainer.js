@@ -3,22 +3,50 @@ import { TextInput, View, Text, Button } from "react-native";
 import Counter from "./../../componants/Counter";
 import { styles } from "./MainContainer.style";
 import DateTimePicker from "../../componants/DateAndTimePicker";
-import { setFormInput } from "../../actions";
+import ImagePicker from "../../componants/ImagePicker";
+import { setFormInput, submitForm } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 
 const MainContainer = () => {
   const dispatch = useDispatch();
-  const onInputChange = (value, type) => {
-    dispatch(
-      setFormInput({
-        [type]: value,
-      })
-    );
-  };
-
   const form = useSelector((state) => state.common.form);
 
-  const onFormSubmit = () => {};
+  const onInputChange = (value, type) => {
+    let obj = { [type]: value };
+    if (type === "discount") {
+      obj = {
+        [type]: value,
+        price: intialPrice - intialPrice * (value / 100),
+      };
+    }
+    if (type === "intialPrice") {
+      obj = {
+        ...obj,
+        price: value,
+      };
+    }
+    dispatch(setFormInput(obj));
+  };
+
+  const onFormSubmit = () => {
+    // let validationKeys = [
+    //   "title",
+    //   "category",
+    //   "name",
+    //   "description",
+    //   "intialPrice",
+    //   "price",
+    //   "quantity",
+    //   "discount",
+    //   "image",
+    //   "availability_end",
+    //   "availability_start",
+    // ];
+    let body = { ...form, discount: form.discount / 100 };
+ 
+    dispatch(submitForm(body)); // this action doesn't do anything, i was just put here to show how a form is submitted
+  };
   const {
     title,
     category,
@@ -28,6 +56,9 @@ const MainContainer = () => {
     price,
     quantity,
     discount,
+    image,
+    availability_end,
+    availability_start,
   } = form;
   return (
     <View style={styles.container}>
@@ -49,12 +80,23 @@ const MainContainer = () => {
         value={name}
         placeholder="Name"
       />
-      <View style={styles.row}>
-        <Text style={styles.label}>Avaialble Quantity :</Text>
-        <Counter
-          value={quantity}
-          onChange={(value) => onInputChange(value, "quantity")}
+      <View>
+        <ImagePicker
+          onChange={(value) => onInputChange(value, "image")}
+          value={image}
         />
+      </View>
+      <View style={styles.row}>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.label}>Avaialble Quantity</Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Counter
+            style={{ justifyContent: "flex-end" }}
+            value={quantity}
+            onChange={(value) => onInputChange(value, "quantity")}
+          />
+        </View>
       </View>
       <Text style={styles.label}> Description</Text>
       <TextInput
@@ -65,7 +107,7 @@ const MainContainer = () => {
         multiline={true}
         numberOfLines={4}
       />
-      <View style={styles.centeredRow}>
+      <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
         <View>
           <Text style={styles.numberInputLabel}>Intial price</Text>
           <TextInput
@@ -80,6 +122,7 @@ const MainContainer = () => {
           <Counter
             value={discount}
             onChange={(value) => onInputChange(value, "discount")}
+            specialCharacter={"%"}
           />
         </View>
         <View>
@@ -89,12 +132,20 @@ const MainContainer = () => {
             onChangeText={(value) => onInputChange(value, "price")}
             value={price}
             keyboardType="numeric"
+            disabled
           />
         </View>
       </View>
       <View style={styles.centeredRow}>
-        <DateTimePicker /> To
-        <DateTimePicker />
+        <DateTimePicker
+          onChange={(value) => onInputChange(value, "availability_start")}
+          value={availability_start}
+        />
+        <Text style={styles.label}>To</Text>
+        <DateTimePicker
+          onChange={(value) => onInputChange(value, "availability_end")}
+          value={availability_end}
+        />
       </View>
       <Button title="Submit" onPress={onFormSubmit} />
     </View>

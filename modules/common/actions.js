@@ -1,22 +1,22 @@
 import commonActionTypes from './action-types'
 
-export function getWhatever(value) {
+export function submitForm(value) {
     return {
-        type: commonActionTypes.GET_ALL_WHATEVER,
+        type: commonActionTypes.SUBMIT_FORM,
         payload: value
     }
 }
 
-export function getWhateverSuccess(value) {
+export function submitFormSuccess(value) {
     return {
-        type: commonActionTypes.GET_ALL_WHATEVER_SUCCESS,
+        type: commonActionTypes.SUBMIT_FORM_SUCCESS,
         payload: value
     }
 }
 
-export function getWhateverFail(value) {
+export function submitFormFail() {
     return {
-        type: commonActionTypes.GET_ALL_WHATEVER_FAIL,
+        type: commonActionTypes.SUBMIT_FORM_FAIL,
         payload: value
     }
 }

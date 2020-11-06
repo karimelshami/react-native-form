@@ -1,5 +1,9 @@
-const BaseUrls = {}
+const BaseUrls = {
+  createProductBase: "",
+};
 
-const Urls = {}
+const Urls = {
+  createProduct: `${BaseUrls.createProductBase}/products/new`,
+};
 
-export { Urls }
+export { Urls };
